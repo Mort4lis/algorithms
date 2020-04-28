@@ -3,7 +3,7 @@ from typing import Any, List
 
 import pytest
 
-from src.sorts import selection_sort
+from src.sorts import selection_sort, bubble_sort
 
 test_data = [
     [5, 1, 3, 2, 6, 4],
@@ -23,8 +23,21 @@ def test_selection_sort(arr: List[Any]):
     Проверяет также на неизменность исходного массива.
 
     :param arr: Исходный массив элементов
-    :return:
     """
     dump = deepcopy(arr)
     assert selection_sort(arr) == sorted(arr)
+    assert arr == dump
+
+
+@pytest.mark.parametrize('arr', test_data)
+def test_bubble_sort(arr: List[Any]) -> None:
+    """
+    Тестирование метода сортировки Пузырьком.
+
+    Проверяет также на неизменность исходного массива.
+
+    :param arr: Исходный массив элементов
+    """
+    dump = deepcopy(arr)
+    assert bubble_sort(arr) == sorted(arr)
     assert arr == dump
