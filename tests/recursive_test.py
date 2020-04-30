@@ -2,7 +2,7 @@ from typing import Any, List
 
 import pytest
 
-from src.recursive import recursive_sum, count
+from src.recursive import recursive_sum, count, max_element
 
 test_data = [
     [],
@@ -31,3 +31,17 @@ def test_count(arr: List[Any]) -> None:
     :param arr: Входной массив элементов
     """
     assert count(arr) == len(arr)
+
+
+@pytest.mark.parametrize('arr', test_data)
+def test_max_element(arr: List[Any]) -> None:
+    """
+    Тестирование рекурсивного метода поиска максимального элемента в списке.
+
+    :param arr: Входной список элементов
+    """
+    if len(arr) == 0:
+        with pytest.raises(ValueError):
+            assert max_element(arr)
+    else:
+        assert max_element(arr) == max(arr)

@@ -26,5 +26,24 @@ def count(arr: List[Any]) -> int:
     """
     if not arr:
         return 0
-
     return 1 + count(arr[1:])
+
+
+def max_element(arr: List[Any]) -> Any:
+    """
+    Рекурсивная функция поиска максимального элемента в списке.
+
+    Метод решения задачи основан на принципе "Разделяй и влавствуй".
+
+    :param arr: Входной массив элементов
+    :return: Максимальный элемент в списке
+    """
+    length = len(arr)
+    if length == 0:
+        raise ValueError('max_element() arg is an empty sequence')
+
+    if length == 2:
+        return arr[0] if arr[0] > arr[1] else arr[1]
+
+    sub_max = max_element(arr[1:])
+    return arr[0] if arr[0] > sub_max else sub_max
