@@ -18,7 +18,7 @@ def test_recursive_sum(arr: List[Any]) -> None:
     """
     Тестирование рекурсивного метода подсчета суммы элементов.
 
-    :param arr: Входной массив элементов
+    :param arr: Входной список элементов
     """
     assert recursive_sum(arr) == sum(arr)
 
@@ -28,7 +28,7 @@ def test_count(arr: List[Any]) -> None:
     """
     Тестирование рекурсивного метода подсчета количества элементов в списке.
 
-    :param arr: Входной массив элементов
+    :param arr: Входной список элементов
     """
     assert count(arr) == len(arr)
 
