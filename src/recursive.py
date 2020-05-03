@@ -47,3 +47,28 @@ def max_element(arr: List[Any]) -> Any:
 
     sub_max = max_element(arr[1:])
     return arr[0] if arr[0] > sub_max else sub_max
+
+
+def generate_bracket_sequences(n: int) -> List[str]:
+    """
+    Метод решения вывода всевозможных корректных скобочных последовательностей.
+
+    :param n: Натуральное число
+    :return: Список строк (скобочных последовательностей)
+    """
+    result = []
+    total_seq_len = 2 * n
+
+    def bypass(seq, now_open, was_open):
+        current_len_seq = len(seq)
+        if current_len_seq == total_seq_len:
+            result.append(seq)
+            return
+
+        if was_open < n:
+            bypass(seq + '(', now_open + 1, was_open + 1)
+        if now_open >= 1:
+            bypass(seq + ')', now_open - 1, was_open)
+
+    bypass('(', 1, 1)
+    return result
