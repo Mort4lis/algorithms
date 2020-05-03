@@ -4,7 +4,7 @@ import pytest
 from pytest import fixture
 
 from src.graphs import Node
-from src.search import binary_search, recursive_binary_search, breadth_first_search
+from src.search import binary_search, recursive_binary_search, breadth_first_search, depth_first_search
 
 test_data = [
     ([1, 2, 3, 4, 5, 6, 7, 8, 9], 8),
@@ -70,3 +70,19 @@ def test_breadth_first_search(graph, value, result) -> None:
     :param result: Результирующая (корректная) длина кратчайшего пути
     """
     assert breadth_first_search(graph, value) == result
+
+
+@pytest.mark.parametrize(['value', 'result'], [
+    ('Том', 2),
+    ('Боб', 1),
+    ('Хейхува', -1)
+])
+def test_depth_first_search(graph, value, result) -> None:
+    """
+    Тестирование метода поиска в Глубину.
+
+    :param graph: Фикстура проверяемого графа
+    :param value: Искомое значение
+    :param result: Результирующая (корректная) длина кратчайшего пути
+    """
+    assert depth_first_search(graph, value) == result

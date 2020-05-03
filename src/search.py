@@ -88,3 +88,28 @@ def breadth_first_search(root: Node, value: Any) -> int:
         past.add(node)
 
     return -1
+
+
+def depth_first_search(root: Node, value: Any) -> int:
+    """
+    Метод поиска кратчайшего пути в Глубину.
+
+    :param root: Корневая вершина от которой стартует алгоритм
+    :param value: Искомое значение
+    :return: Кратчайшее расстояние или -1 (если не удалось найти элемент)
+    """
+    past = set()
+    stack = deque()
+    stack += [(node, 1) for node in root.children]
+
+    while stack:
+        node, deep = stack.pop()
+        if node in past:
+            continue
+
+        if node.value == value:
+            return deep
+        stack += [(node, deep + 1) for node in node.children]
+        past.add(node)
+
+    return -1
