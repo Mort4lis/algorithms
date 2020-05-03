@@ -1,4 +1,7 @@
+from collections import deque
 from typing import Any, List
+
+from .graphs import Node
 
 
 def binary_search(arr: List[Any], item: Any) -> int:
@@ -51,3 +54,37 @@ def recursive_binary_search(arr: List[Any], item: Any, begin=0, end=None) -> int
     if arr[mid] < item:
         return recursive_binary_search(arr, item, begin=mid + 1, end=end)
     return recursive_binary_search(arr, item, begin=begin, end=mid)
+
+
+def breadth_first_search(root: Node, value: Any) -> int:
+    """
+    Метод поиска кратчайшего пути в Ширину.
+
+    Находит кратчайший путь с временной сложностью O(V + E), где V - количество вершин,
+    Е - количество ребер.
+    Алгоритм: для реализации алгоритма необходимо иметь очередь (структура FIFO). Берем начальную
+    вершину и кладем в очередь всех ее соседей. Вытаскиваем из очереди первую вершину и проверям
+    является ли она искомой (по value). Если да - заканчиваем поиск, если нет - берем всех соседей
+    этой вершины и ставим их в очередь. Далее вытаскиваем следующую вершину из очереди и повторяем
+    все предыдущие действия. Если в конце алгоритма очередь оказывается пустой - это значит, что
+    мы не нашли искомый элемент.
+
+    :param root: Корневая вершина от которой стартует алгоритм
+    :param value: Искомое значение
+    :return: Кратчайшее расстояние или -1 (если не удалось найти элемент)
+    """
+    past = set()
+    search_queue = deque()
+    search_queue += [(node, 1) for node in root.children]
+
+    while search_queue:
+        node, deep = search_queue.popleft()
+        if node in past:
+            continue
+
+        if node.value == value:
+            return deep
+        search_queue += [(node, deep + 1) for node in node.children]
+        past.add(node)
+
+    return -1
