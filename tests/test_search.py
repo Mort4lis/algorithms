@@ -48,18 +48,20 @@ def test_recursive_binary_search(arr: List[Any], item: Any) -> None:
 
 @fixture(scope='module')
 def graph():
-    root = Node('Вы')
-    root.children = [Node('Клэр'), Node('Алиса'), Node('Боб')]
-    root.children[0].children = [Node('Том'), Node('Джонни')]
-    root.children[1].children = [Node('Пэгги')]
-    root.children[2].children = [Node('Анудж'), root.children[1].children[0]]
+    root = Node(1)
+    root.children = [Node(2), Node(7), Node(8)]
+    root.children[0].children = [Node(3), Node(6)]
+    root.children[0].children[0].children = [Node(4), Node(5)]
+    root.children[2].children = [Node(9), Node(12)]
+    root.children[2].children[0].children = [Node(10), Node(11)]
     return root
 
 
 @pytest.mark.parametrize(['value', 'result'], [
-    ('Том', 2),
-    ('Боб', 1),
-    ('Хейхува', -1)
+    (4, 3),
+    (9, 2),
+    (8, 1),
+    (15, -1)
 ])
 def test_breadth_first_search(graph, value, result) -> None:
     """
@@ -73,9 +75,10 @@ def test_breadth_first_search(graph, value, result) -> None:
 
 
 @pytest.mark.parametrize(['value', 'result'], [
-    ('Том', 2),
-    ('Боб', 1),
-    ('Хейхува', -1)
+    (4, 3),
+    (9, 2),
+    (8, 1),
+    (15, -1)
 ])
 def test_depth_first_search(graph, value, result) -> None:
     """
