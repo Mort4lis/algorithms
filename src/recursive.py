@@ -59,16 +59,16 @@ def generate_bracket_sequences(n: int) -> List[str]:
     result = []
     total_seq_len = 2 * n
 
-    def bypass(seq, now_open, was_open):
+    def bypass(seq, opened, closed):
         current_len_seq = len(seq)
         if current_len_seq == total_seq_len:
             result.append(seq)
             return
 
-        if was_open < n:
-            bypass(seq + '(', now_open + 1, was_open + 1)
-        if now_open >= 1:
-            bypass(seq + ')', now_open - 1, was_open)
+        if opened < n:
+            bypass(seq + '(', opened + 1, closed)
+        if closed < opened:
+            bypass(seq + ')', opened, closed + 1)
 
-    bypass('(', 1, 1)
+    bypass('(', 1, 0)
     return result
